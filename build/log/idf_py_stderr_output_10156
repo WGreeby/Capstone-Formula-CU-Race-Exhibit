@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:/Users/cgord/esp/esp-idf/tools/kconfig_new/confserver.py", line 324, in <module>
+    main()
+  File "C:/Users/cgord/esp/esp-idf/tools/kconfig_new/confserver.py", line 71, in main
+    run_server(args.kconfig, args.config, args.sdkconfig_rename)
+  File "C:/Users/cgord/esp/esp-idf/tools/kconfig_new/confserver.py", line 75, in run_server
+    config = kconfiglib.Kconfig(kconfig)
+  File "C:\Users\cgord\Espressif\python_env\idf5.0_py3.8_env\lib\site-packages\kconfiglib.py", line 947, in __init__
+    self._init(filename, warn, warn_to_stderr, encoding)
+  File "C:\Users\cgord\Espressif\python_env\idf5.0_py3.8_env\lib\site-packages\kconfiglib.py", line 1085, in _init
+    self._parse_block(None, self.top_node, self.top_node).next = None
+  File "C:\Users\cgord\Espressif\python_env\idf5.0_py3.8_env\lib\site-packages\kconfiglib.py", line 2989, in _parse_block
+    prev = self._parse_block(None, parent, prev)
+  File "C:\Users\cgord\Espressif\python_env\idf5.0_py3.8_env\lib\site-packages\kconfiglib.py", line 2977, in _parse_block
+    raise KconfigError(
+kconfiglib.KconfigError: C:/Users/cgord/espBT2_0/build/kconfigs_projbuild.in:6: 'C:/Users/cgord/espBT2_0/main/Kconfig.projbuild' not found (in 'source "C:/Users/cgord/espBT2_0/main/Kconfig.projbuild"'). Check that environment variables are set correctly (e.g. $srctree, which is unset or blank). Also note that unset environment variables expand to the empty string.
