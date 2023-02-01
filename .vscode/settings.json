@@ -77,6 +77,8 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "esp_partition.h": "c",
+        "nooch_mqtt_event_handler.h": "c"
     }
 }
