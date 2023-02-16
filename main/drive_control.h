@@ -7,7 +7,6 @@
 #include "esp_log.h"
 #include "ps3.h"
 
-#define SAMPLE_CNT 32
 #define LEDC_GPIO 27
 
 void drive(uint32_t adc_val);

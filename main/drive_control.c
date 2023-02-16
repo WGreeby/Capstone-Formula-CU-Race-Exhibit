@@ -1,6 +1,6 @@
 #include "drive_control.h"
 
-#define SAMPLE_CNT 8
+#define SAMPLE_CNT 1
 #define LEDC_GPIO_LEFT 27
 #define LEDC_GPIO_RIGHT 26
 #define LEDC_GPIO_FWD 25
@@ -66,14 +66,14 @@ void drive(uint32_t adc_val){
         adc_val2 /= SAMPLE_CNT;
         // ESP_LOGI(TAG3, "Current ADC Value: %lu", adc_val2);
 
-        // ESP_LOGI(TAG3, "Current stick Value: %ld", ps3.analog.stick.lx);
+        //ESP_LOGI(TAG3, "Current stick Value: %d", ps3.analog.stick.lx);
 
         uint32_t target_adc = 0;
         if(ps3.analog.stick.lx >= -64){
-                target_adc = 482 + (ps3.analog.stick.lx*132/64);
+                target_adc = 615 - (((int32_t)ps3.analog.stick.lx+64)*200/191);
         }
         else{
-                target_adc = 482 + ((ps3.analog.stick.lx + 127)*132/62);
+                target_adc = 415 - (((int32_t)ps3.analog.stick.lx+128)*65/64);
         }
 
         if(ps3.analog.stick.lx == 64){
@@ -82,20 +82,20 @@ void drive(uint32_t adc_val){
 
         // ESP_LOGI(TAG3, "Target adc Value: %lu", target_adc);
 
-        if(adc_val2 < (target_adc - 10)){
+        if(adc_val2 < (target_adc - 20)){
 
-                ledc_set_duty(ledc_channel_steer_right.speed_mode, ledc_channel_steer_right.channel, 50);
+                ledc_set_duty(ledc_channel_steer_right.speed_mode, ledc_channel_steer_right.channel, 60);
                 ledc_update_duty(ledc_channel_steer_right.speed_mode, ledc_channel_steer_right.channel);  
         
                 ledc_set_duty(ledc_channel_steer_left.speed_mode, ledc_channel_steer_left.channel, 0);
                 ledc_update_duty(ledc_channel_steer_left.speed_mode, ledc_channel_steer_left.channel);  
         }
-        else if(adc_val2 > (target_adc + 10)){
+        else if(adc_val2 > (target_adc + 20)){
 
                 ledc_set_duty(ledc_channel_steer_right.speed_mode, ledc_channel_steer_right.channel, 0);
                 ledc_update_duty(ledc_channel_steer_right.speed_mode, ledc_channel_steer_right.channel);  
         
-                ledc_set_duty(ledc_channel_steer_left.speed_mode, ledc_channel_steer_left.channel, 40);
+                ledc_set_duty(ledc_channel_steer_left.speed_mode, ledc_channel_steer_left.channel, 60);
                 ledc_update_duty(ledc_channel_steer_left.speed_mode, ledc_channel_steer_left.channel);  
         }
         else{
@@ -108,7 +108,7 @@ void drive(uint32_t adc_val){
 
         if(ps3.analog.button.r2){
 
-                ledc_set_duty(ledc_channel_forward.speed_mode, ledc_channel_forward.channel, 500);
+                ledc_set_duty(ledc_channel_forward.speed_mode, ledc_channel_forward.channel, 2 * (uint16_t)ps3.analog.button.r2);
                 ledc_update_duty(ledc_channel_forward.speed_mode, ledc_channel_forward.channel);
 
                 ledc_set_duty(ledc_channel_backward.speed_mode, ledc_channel_backward.channel, 0);
@@ -119,7 +119,7 @@ void drive(uint32_t adc_val){
                 ledc_set_duty(ledc_channel_forward.speed_mode, ledc_channel_forward.channel, 0);
                 ledc_update_duty(ledc_channel_forward.speed_mode, ledc_channel_forward.channel);
 
-                ledc_set_duty(ledc_channel_backward.speed_mode, ledc_channel_backward.channel, 500);
+                ledc_set_duty(ledc_channel_backward.speed_mode, ledc_channel_backward.channel,  2 * (uint16_t)ps3.analog.button.l2);
                 ledc_update_duty(ledc_channel_backward.speed_mode, ledc_channel_backward.channel);
         }
         else{

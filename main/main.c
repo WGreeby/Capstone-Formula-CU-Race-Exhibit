@@ -78,7 +78,7 @@ void app_main(void)
     ps3Init();
     
     while(!ps3IsConnected()){
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        vTaskDelay(pdMS_TO_TICKS(10));
         //ESP_LOGI(TAG,"HERE");
     }
     ESP_LOGI("","HERE");
@@ -86,6 +86,6 @@ void app_main(void)
 
     while (1) {
         drive(0);
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        vTaskDelay(pdMS_TO_TICKS(2));
     }
 }

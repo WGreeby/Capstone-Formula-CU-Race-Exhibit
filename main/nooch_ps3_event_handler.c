@@ -9,7 +9,7 @@ void controller_event_cb(ps3_t ps3, ps3_event_t event){
     if( ps3.analog.button.r2){
         // driveForward((uint32_t)ps3.analog.button.r2);
        // ESP_LOGI(TAG_BT, "Driving forward");
-       // ESP_LOGI(TAG_BT, "%d",ps3.analog.button.r2);
+       //ESP_LOGI(TAG_BT, "Trigger: %d",ps3.analog.button.r2);
     }
     if( ps3.button.l2){
         //driveBackward(ps3.button.l2);
