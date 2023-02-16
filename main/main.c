@@ -9,6 +9,11 @@
 #include "nooch_wifi_main.h"
 #include "nooch_ps3_event_handler.h"
 #include "management_buffer.h"
+#include "drive_control.h"
+#include "driver/adc.h"
+#include "driver/ledc.h"
+
+
 // #include <stdio.h>
 // #include <stdint.h>
 // #include <stddef.h>
@@ -58,25 +63,29 @@ void app_main(void)
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
-
-    ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
-    wifi_init_sta();
-    mqtt_app_start();
-    
-    uint8_t tim_mac_addr[8] = { 0xa4, 0xcf, 0x12, 0x04, 0xcc, 0xca };
-    ps3SetBluetoothMacAddress( tim_mac_addr );
+    init_hw();
+    // ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
+    // wifi_init_sta();
+    // mqtt_app_start();
+  //PCB REV1 78:21:84:d6:f6:5a            PCB REV 1
+  //Tim a4:cf:12:04:cc:ca
+  //Gannon a4:cf:12:04:d1:9e
+    //uint8_t gannon_mac_addr[8] = { 0xa4, 0xcf, 0x12, 0x04, 0xcc, 0xca};
+    uint8_t pcbrev1_mac_addr[8] = { 0x78, 0x21, 0x84, 0xd6, 0xf6, 0x5a };
+    //uint8_t gannon_mac_addr[8] = { 0xa4, 0xcf, 0x12, 0x04, 0xd1, 0x9e};
+    ps3SetBluetoothMacAddress( pcbrev1_mac_addr );
     ps3SetEventCallback(controller_event_cb);
     ps3Init();
-
+    
     while(!ps3IsConnected()){
         vTaskDelay(10 / portTICK_PERIOD_MS);
-        // ESP_LOGI(TAG,"HERE");
+        //ESP_LOGI(TAG,"HERE");
     }
+    ESP_LOGI("","HERE");
     ps3SetLed(1);
 
-
-
     while (1) {
+        drive(0);
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }

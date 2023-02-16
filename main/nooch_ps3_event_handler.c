@@ -1,4 +1,4 @@
-#include"nooch_ps3_event_handler.h"
+#include "nooch_ps3_event_handler.h"
 
 void controller_event_cb(ps3_t ps3, ps3_event_t event){
     // if ( ps3.status.battery >= ps3_status_battery_high )
@@ -6,13 +6,21 @@ void controller_event_cb(ps3_t ps3, ps3_event_t event){
     
     // if ( ps3.status.charging )
     //     ESP_LOGI(TAG_BT, "Controller is charging");
-
+    if( ps3.analog.button.r2){
+        // driveForward((uint32_t)ps3.analog.button.r2);
+       // ESP_LOGI(TAG_BT, "Driving forward");
+       // ESP_LOGI(TAG_BT, "%d",ps3.analog.button.r2);
+    }
+    if( ps3.button.l2){
+        //driveBackward(ps3.button.l2);
+        // ESP_LOGI(TAG_BT, "Driving backward");
+    }
     if ( ps3.button.triangle )
-        ESP_LOGI(TAG_BT, "Currently pressing the trangle button");
+        // ESP_LOGI(TAG_BT, "Currently pressing the trangle button");
 
     if ( ps3.analog.stick.lx < 0 ){
         //send_ps3_val(ps3.analog.stick.lx);
-        ESP_LOGI(TAG_BT, "%d", ps3.analog.stick.lx);
+        // ESP_LOGI(TAG_BT, "%d", ps3.analog.stick.lx);
     }
 
     if ( event.button_down.cross ){

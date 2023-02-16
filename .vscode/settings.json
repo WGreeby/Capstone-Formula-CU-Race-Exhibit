@@ -79,6 +79,8 @@
         "typeinfo": "cpp",
         "*.inc": "cpp",
         "esp_partition.h": "c",
-        "nooch_mqtt_event_handler.h": "c"
+        "nooch_mqtt_event_handler.h": "c",
+        "l2c_api.h": "c",
+        "adc.h": "c"
     }
 }
